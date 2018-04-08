@@ -27,8 +27,8 @@ app.post("/upload", upload.single('image'), (req, res) => {
 	let body = req.body;
 	console.log("Image body \(body)");
 	console.log(image);
-
-	res.sendStatus(200).send('You gucci');
+	res.send('You gucci')
+	res.sendStatus(200);
 });
 
 

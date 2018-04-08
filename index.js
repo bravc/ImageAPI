@@ -7,6 +7,7 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+const PORT = process.env.PORT || 3001
 
 app.get("/", (req, res) => {
 	res.sendFile(path.join(__dirname + '/index.html'));
@@ -30,4 +31,4 @@ app.post("/upload", (req, res) => {
 });
 
 
-app.listen(8080);
+app.listen(PORT);

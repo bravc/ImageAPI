@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path")
 const app = express();
 const bodyParser = require('body-parser');
+var upload = multer({ dest: 'uploads/' })
 
 app.use(express.json());
 
@@ -20,15 +21,13 @@ app.post("/cool", function (req, res) {
 	res.send(req.body.nothing);
 });
 
-app.post("/upload", (req, res) => {
-	let imageString = req.body.image;
-	console.log(imageString);
+app.post("/upload", upload.single('image'), (req, res) => {
+	let image = req.file;
+	let body = req.body;
+	console.log("Image body \(body)");
+	console.log(image);
 
-	if(imageString != ""){
-		res.sendStatus(200);
-	}else{
-		res.sendStatus(500);
-	}
+	res.sendStatus(200).send('You gucci');
 });
 
 

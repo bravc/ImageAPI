@@ -9,10 +9,14 @@ app.use(express.static(path.join(__dirname, 'uploads')));
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')) );
 
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/public', express.static(path.join(__dirname, 'public')) );
+
 var storage = multer.diskStorage({
 	destination: './uploads/',
 	filename: function (req, file, cb) {
-		cb(null, file.originalname)
+		cb(null, Date.now() + '.png')
 	}
   });
 
@@ -36,6 +40,18 @@ app.get("/", (req, res) => {
 			pics.push(file);
 		});
 		res.render('main', {images: pics})
+	});
+});
+
+app.get("/photos", (req, res) => {
+	fs.readdir( "./uploads", function( err, files ) {
+		let pics = []
+		files.forEach(function(file, index){
+			pics.push("129.21.101.239:8080/uploads/" + file);
+		});
+		console.log(pics);
+		res.status(200).json(pics);
+		res.end();
 	});
 });
 
